@@ -1,0 +1,8 @@
+resolver: lts-3.6
+packages:
+  - .
+docker:
+  enable: true
+  image: 0d3ddec4b8b35a96b2f47435fb326295a9a408de9d6c28d697bd808520f362dc
+  auto-pull: true
+  stack-exe: image
