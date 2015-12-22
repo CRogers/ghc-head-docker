@@ -1,9 +1,18 @@
 machine:
-  services:
-    - docker
+  xcode:
+    version: "7.1"
 
 test:
   pre:
-    - time docker pull gregweber/ghc-haskell-dev
+    - brew update
+    - brew install autoconf automake ghc
+    - cabal update
+    - cabal install alex happy
   override:
-    - ./build-and-package.sh
+    - git config --global url."https://github.com/ghc/packages-".insteadOf   https://github.com/ghc/packages/
+    - git clone --depth 1 --recursive https://github.com/ghc/ghc.git /tmp/ghc
+    - cd /tmp/ghc
+    - ./boot
+    - ./configure --prefix=/tmp/ghc/built
+    - make -j2
+    - make -j2 install
